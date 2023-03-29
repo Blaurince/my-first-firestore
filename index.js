@@ -14,15 +14,20 @@ initializeApp({
 const db = getFirestore();
 
 // add a product to our product collection
-const candy = {
-    name: "skittles",
-    unitPrice: 3.99,
-    size: "16 oz",
-    color: "green",
-    inventory: 144,
-    productNumber: "SK007",
-};
+const candy2 = {
+    name: "twix",
+    unitPrice: 2.99,
+    size: "12 oz",
+    color: "gold",
+    inventory: 288,
+    productNumber:2,
+}
 
-db.collection("products").add(candy)
-.then(doc => console.log("added doc: "+ doc.id))
+db.collection("products").add(candy2)  // while we are waiting for the promise...
+    .then ((doc) => {
+    console.log("added doc: " + doc.id) // I can be sure that the process was completed successfully
+    return db.collection('products').get() // also returns a promise
+})
+.then()
 .catch(err => console.log(err))
+
